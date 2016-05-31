@@ -1,12 +1,12 @@
 class DefaultFormat: Listener {
   private var failures: [String] = []
   private var pending: [String] = []
-  private var spec: String = ""
+  private var group: String = ""
   private var test: String = ""
 
   func on(event: Event) {
     switch event {
-    case .SpecStarted(let name):
+    case .GroupStarted(let name):
       onTestStarted(name)
     case .TestStarted(let name):
       onTestStarted(name)
@@ -20,7 +20,7 @@ class DefaultFormat: Listener {
   }
 
   private func onTestStarted(_ name: String) {
-    spec = name
+    group = name
   }
 
   private func onTestStarted(_ name: String?) {
@@ -37,7 +37,7 @@ class DefaultFormat: Listener {
 
   private func onTestIgnored() {
     print("*", terminator: "")
-    pending.append("    \(pending.count + 1)]  Pending: no assertion in '\(spec + test)'")
+    pending.append("    \(pending.count + 1)]  Pending: no assertion in '\(group + test)'")
   }
 
   private func onTestPassed() {
@@ -47,7 +47,7 @@ class DefaultFormat: Listener {
   private func onTestFailed(result: Assert.Result) {
     print("F", terminator: "")
     failures.append([
-      "    \(failures.count + 1))  Failure in '\(spec + test)': \(result.message)",
+      "    \(failures.count + 1))  Failure in '\(group + test)': \(result.message)",
       "        # \(result.file):\(result.line)",
     ].joined(separator: "\n"))
   }

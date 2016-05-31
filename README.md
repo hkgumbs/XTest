@@ -5,11 +5,11 @@
 ```swift
 import XTest
 
-struct MySpec: Spec {
+struct MySpec: Group {
   static var data: [Int] = []
 
   func before() {
-    // optional, runs before every spec
+    // optional, runs before every test
     // after() is also optional
     MySpec.data = [1, 2, 3]
   }
@@ -34,7 +34,7 @@ struct MySpec: Spec {
 ```swift
 import XTest
 
-Suite(specs: MySpec()).run()
+Suite(groups: MySpec()).run()
 ```
 
 #### Output

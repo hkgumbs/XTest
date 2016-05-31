@@ -1,26 +1,26 @@
 public struct Suite {
   private let listeners: [Listener]
-  private let specs: [Spec]
+  private let groups: [Group]
 
-  public init(listeners: [Listener] = [DefaultFormat()], specs: Spec...) {
+  public init(listeners: [Listener] = [DefaultFormat()], groups: Group...) {
     self.listeners = listeners
-    self.specs = specs
+    self.groups = groups
   }
 
   public func run() {
     publish(event: .SuiteStarted)
-    for spec in specs {
-      let name = String(spec.dynamicType)
-      publish(event: .SpecStarted(name))
-      for (label, test) in spec.scenarios() {
+    for group in groups {
+      let name = String(group.dynamicType)
+      publish(event: .GroupStarted(name))
+      for (label, test) in group.scenarios() {
         publish(event: .TestStarted(label))
-        spec.before()
+        group.before()
         let assert = Assert()
         test.scenario(assert)
-        spec.after()
+        group.after()
         publish(event: .TestEnded(assert.results))
       }
-      publish(event: .SpecEnded(name))
+      publish(event: .GroupEnded(name))
     }
     publish(event: .SuiteEnded)
   }
