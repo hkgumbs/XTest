@@ -2,7 +2,7 @@ public enum Event {
   case SuiteStarted
   case SpecStarted(String)
   case TestStarted(String?)
-  case TestEnded([Result])
+  case TestEnded([Assert.Result])
   case SpecEnded(String)
   case SuiteEnded
 }

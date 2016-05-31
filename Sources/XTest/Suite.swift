@@ -1,11 +1,4 @@
 public struct Suite {
-  private class AssertDelegate: Assert {
-    var results: [Result] = []
-    func accumulate(result: Result) {
-      results.append(result)
-    }
-  }
-
   private let listeners: [Listener]
   private let specs: [Spec]
 
@@ -22,7 +15,7 @@ public struct Suite {
       for (label, test) in spec.scenarios() {
         publish(event: .TestStarted(label))
         spec.before()
-        let assert = AssertDelegate()
+        let assert = Assert()
         test.scenario(assert)
         spec.after()
         publish(event: .TestEnded(assert.results))

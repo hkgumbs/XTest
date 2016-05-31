@@ -27,7 +27,7 @@ class DefaultFormat: Listener {
     test = name.map { "#\($0)" } ?? ""
   }
 
-  private func onTestEnded(_ results: [Result]) {
+  private func onTestEnded(_ results: [Assert.Result]) {
     let failures = results.filter { result in !result.successful }
 
     if results.isEmpty { onTestIgnored() }
@@ -44,7 +44,7 @@ class DefaultFormat: Listener {
     print(".", terminator: "")
   }
 
-  private func onTestFailed(result: Result) {
+  private func onTestFailed(result: Assert.Result) {
     print("F", terminator: "")
     failures.append([
       "    \(failures.count + 1))  Failure in '\(spec + test)': \(result.message)",
