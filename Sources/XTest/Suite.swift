@@ -9,20 +9,23 @@ public struct Suite {
 
   public func run() {
     publish(event: .SuiteStarted)
-    for group in groups {
-      let name = String(group.dynamicType)
-      publish(event: .GroupStarted(name))
-      for (label, test) in group.scenarios() {
-        publish(event: .TestStarted(label))
-        group.before()
-        let assert = Assert()
-        test.scenario(assert)
-        group.after()
-        publish(event: .TestEnded(assert.results))
-      }
-      publish(event: .GroupEnded(name))
-    }
+    groups.forEach { run(group: $0, named: String($0.dynamicType)) }
     publish(event: .SuiteEnded)
+  }
+
+  private func run(group: Group, named name: String) {
+    publish(event: .GroupStarted(name))
+    group.scenarios().forEach { run(test: $0.1, labeled: $0.0, within: group) }
+    publish(event: .GroupEnded(name))
+  }
+
+  private func run(test: Test, labeled label: String?, within group: Group) {
+    publish(event: .TestStarted(label))
+    group.before()
+    let assert = Assert()
+    test.scenario(assert)
+    group.after()
+    publish(event: .TestEnded(assert.results))
   }
 
   private func publish(event: Event) {
