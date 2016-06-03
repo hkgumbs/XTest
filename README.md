@@ -45,6 +45,8 @@ $ .build/debug/Sample
         # /app/Sources/Sample/MySpec.swift:21
 
     1]  Pending: no assertion in 'MySpec#testWithNoAssertions'
+
+  1/4 passed.
 ```
 
 

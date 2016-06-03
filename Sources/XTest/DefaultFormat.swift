@@ -56,7 +56,7 @@ class DefaultFormat: Listener {
 
   private func onSuiteEnded() {
     let newline = "\n"
-    let summary = "  \(passedCount)/\(passedCount + failures.count) passed."
+    let summary = "  \(passedCount)/\(passedCount + failures.count + pending.count) passed."
     let output = (failures + pending).joined(separator: newline)
     print(newline, output, newline, summary)
   }
