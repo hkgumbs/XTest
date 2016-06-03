@@ -9,14 +9,14 @@ public struct Suite {
 
   public func run() {
     publish(event: .SuiteStarted)
-    groups.forEach { run(group: $0, named: String($0.dynamicType)) }
+    groups.forEach { run(group: $0) }
     publish(event: .SuiteEnded)
   }
 
-  private func run(group: Group, named name: String) {
-    publish(event: .GroupStarted(name))
+  private func run(group: Group) {
+    publish(event: .GroupStarted(group.describing))
     group.scenarios().forEach { run(test: $0.1, labeled: $0.0, within: group) }
-    publish(event: .GroupEnded(name))
+    publish(event: .GroupEnded(group.describing))
   }
 
   private func run(test: Test, labeled label: String?, within group: Group) {

@@ -7,8 +7,8 @@ class DefaultFormat: Listener {
 
   func on(event: Event) {
     switch event {
-    case .GroupStarted(let name):
-      onGroupStarted(name)
+    case .GroupStarted(let describing):
+      onGroupStarted(describing)
     case .TestStarted(let name):
       onTestStarted(name)
     case .TestEnded(let results):
@@ -20,8 +20,8 @@ class DefaultFormat: Listener {
     }
   }
 
-  private func onGroupStarted(_ name: String) {
-    currentGroup = name
+  private func onGroupStarted(_ describing: String) {
+    currentGroup = describing
   }
 
   private func onTestStarted(_ name: String?) {
