@@ -13,7 +13,7 @@ public class Assert {
     results.append((successful: successful, message: message, file: file, line: line))
   }
 
-  public func that<E: Equatable>(_ first: E, equals second: E, message provided: String? = nil, file: String = #file, line: Int = #line) {
+  public func that<E: Equatable>(_ first: E?, equals second: E?, message provided: String? = nil, file: String = #file, line: Int = #line) {
     let message = provided ?? "Expected \(first) to equal \(second)"
     results.append((successful: first == second, message: message, file: file, line: line))
   }
