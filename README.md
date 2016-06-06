@@ -23,7 +23,7 @@ struct MySpec: Group {
   }
 
   let thingsAreNotEqual = Test { assert in
-    assert.that(data.first!, equals: data.last!, message: "Look, custom messages!")
+    assert.that(data.first, equals: data.last, message: "Look, custom messages!")
   }
 
   let testWithNoAssertions = Test { _ in }
