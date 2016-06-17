@@ -1,0 +1,12 @@
+(package
+  :name "XTest"
+
+  :tasks {
+    :default {
+      :tool "atllbuild"
+      :sources ["Sources/**.swift"]
+      :output-type "static-library"
+      :name "XTest"
+    }
+  }
+)
